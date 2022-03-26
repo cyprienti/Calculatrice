@@ -1,16 +1,18 @@
-#Calculatrice
+# Calculatrice
 
 CODE HTML (calculatrice.html)
 
 
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Calculatrice en javascript</title>
-        <script type="text/javascript" src="calculatrice.js"></script>
-        <link rel="stylesheet" media="screen, print, handheld" type="text/css" href="calculatrice.css" />
-    </head>
-   <body>
+    
+      <head>
+        
+           <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+             <title>Calculatrice en javascript</title>
+              <script type="text/javascript" src="calculatrice.js"></script>
+                <link rel="stylesheet" type="text/css" href="calculatrice.css" />
+     </head>
+     <body>
         <table class="calculatrice" id="calc">
             <tr>
                 <td colspan="4" class="calc_td_resultat">
@@ -88,78 +90,136 @@ CODE HTML (calculatrice.html)
                 </td>
             </tr>
         </table>
-        <script type="text/javascript">
+        
+    <script type="text/javascript">
                 document.getElementById('calc').onload=initialiser_calc('calc');
-        </script>
-    </body>
-</html>
+     </script>
+    
+
+      </body>
+
+
+  </html>
 
 
 
-CODE CSS. (calculatrice.css)
+
+
+
+CODE CSS (calculatrice.css)
+
+
+
 
 .calculatrice
 {
-        width:300px;
-        height:300px;
-        background-color:#eeeeee;
-        border:2px solid #CCCCCC;
-        margin:auto;
-        padding-left:5px;
-        padding-bottom:5px;
+        
+    width:300px;
+        
+    height:300px;
+        
+    background-color:#eeeeee;
+        
+    border:2px solid #CCCCCC;
+        
+    margin:auto;
+       
+    padding-left:5px;
+        
+    padding-bottom:5px;
+
 }
+
 .calculatrice td
-{
-        height:16.66%;
-}
+
+   
+   {
+             
+          height:16.66%;
+   
+   }
+
 .calc_td_resultat
-{
+
+    {
         text-align:center;
-}
+
+    }
+
 .calc_resultat
-{
+
+    {
         width:90%;
+        
         text-align:right;
-}
+
+    }
+
 .calc_td_calculs
-{
+
+    {
         text-align:center;
-}
+
+    }
+
 .calc_calculs
-{
+
+    {
         width:90%;
+        
         text-align:left;
-}
+
+    }
+
 .calc_td_btn
-{
+
+    {
         width:25%;
+        
         height:100%;
-}
+
+    }
+
 .calc_btn
-{
+
+    {
         width:90%;
+        
         height:90%;
+        
         font-size:20px;
-}
+
+     }
 
 
-CODE JAVASCRIPT. (calculatrice.js)
 
-calc_array = new Array();
-var calcul=0;
-var pas_ch=0;
-function $id(id)
+  
+
+
+    Code JAVASCRIPT (calculatrice.js)
+
+
+    calc_array = new Array();
+    
+    var calcul=0;
+   
+    var pas_ch=0;
+
+    function $id(id)
 {
         return document.getElementById(id);
 }
-function f_calc(id,n)
+
+     function f_calc(id,n)
 {
+        
         if(n=='ce')
         {
                 initialiser_calc(id);
         }
         else if(n=='=')
         {
+               
                 if(calc_array[id][0]!='=' && calc_array[id][1]!=1)
                 {
                         eval('calcul='+calc_array[id][2]+calc_array[id][0]+calc_array[id][3]+';');
@@ -185,7 +245,8 @@ function f_calc(id,n)
         }
         else if(n=='nbs')
         {
-                if($id(id+'_resultat').value<10 && $id(id+'_resultat').value>-10)
+               
+      if($id(id+'_resultat').value<10 && $id(id+'_resultat').value>-10)
                 {
                         $id(id+'_resultat').value=0;
                 }
@@ -225,68 +286,95 @@ function f_calc(id,n)
         document.getElementById(id+'_resultat').focus();
         return true;
 }
-function add_calc(id,n)
+
+       function add_calc(id,n)
 {
         if(calc_array[id][1]==1)
         {
                 $id(id+'_resultat').value=n;
         }
+       
         else
         {
                 $id(id+'_resultat').value+=n;
         }
+       
+
         if(calc_array[id][0]=='=')
         {
                 calc_array[id][2] = $id(id+'_resultat').value;
                 calc_array[id][3] = 0;
         }
+       
         else
         {
                 calc_array[id][3] = $id(id+'_resultat').value;
         }
+       
         calc_array[id][1] = 0;
+        
         document.getElementById(id+'_resultat').focus();
+        
         return true;
+
 }
+
 function initialiser_calc(id)
+ 
 {
         $id(id+'_resultat').value=0;
+       
         calc_array[id] = new Array('=',1,'0','0',0);
+       
         document.getElementById(id+'_resultat').focus();
+      
         return true;
+
 }
+
 function key_detect_calc(id,evt)
+
 {
         if((evt.keyCode>95) && (evt.keyCode<106))
+       
         {
                 var nbr = evt.keyCode-96;
                 add_calc(id,nbr);
         }
+       
         else if((evt.keyCode>47) && (evt.keyCode<58))
+      
         {
                 var nbr = evt.keyCode-48;
                 add_calc(id,nbr);
         }
+      
         else if(evt.keyCode==107)
         {
                 f_calc(id,'+');
+       
         }
+        
         else if(evt.keyCode==109)
         {
                 f_calc(id,'-');
         }
+        
         else if(evt.keyCode==106)
         {
                 f_calc(id,'*');
         }
+       
         else if(evt.keyCode==111)
         {
                 f_calc(id,'');
         }
+        
         else if(evt.keyCode==110)
         {
                 add_calc(id,'.');
         }
+       
         else if(evt.keyCode==190)
         {
                 add_calc(id,'.');
